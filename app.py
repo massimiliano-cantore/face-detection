@@ -1,4 +1,10 @@
 """Demo Gradio: HOG + SVM contro YuNet sulla stessa foto (Hugging Face Spaces, CPU)."""
+try:  # hardware ZeroGPU di Hugging Face: richiede almeno una funzione @spaces.GPU
+    import spaces
+    zero_gpu = spaces.GPU
+except ImportError:  # esecuzione locale o su CPU
+    def zero_gpu(fn):
+        return fn
 import os
 import sys
 import time
@@ -18,6 +24,7 @@ hog_det = HogSvmDetector(snapshot_download(HOG_REPO))
 yunet = YuNetDetector()
 
 
+@zero_gpu
 def run(image_rgb):
     if image_rgb is None:
         return None, None, ""
