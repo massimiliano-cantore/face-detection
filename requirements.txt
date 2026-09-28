@@ -1,0 +1,7 @@
+numpy
+opencv-python-headless>=4.8
+scikit-image==0.25.2
+scikit-learn==1.6.1          # stessa versione usata per addestrare il modello
+joblib
+huggingface_hub
+gradio
